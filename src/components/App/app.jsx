@@ -9,7 +9,7 @@ import { Layout, Menu } from 'antd';
 import Home from '@/components/Home/home';
 import About from '@/components/About/about';
 import Project from '@/components/Project/project';
-import PostList from '@/components/store_test/users'
+import Redux from '@/components/Redux/index'
 // import Movie from '@/components/Movie/movie';
 const { Header, Content, Footer } = Layout;
 export default class App extends React.Component {
@@ -47,6 +47,9 @@ export default class App extends React.Component {
 							<Menu.Item key="about">
 								<Link to="/about">个人履历</Link>
 							</Menu.Item>
+							<Menu.Item key="redux">
+								<Link to="/redux">redux</Link>
+							</Menu.Item>
 						</Menu>
 					</Header>
 					<Content style={{ padding: '0 50px' }}>
@@ -55,12 +58,12 @@ export default class App extends React.Component {
 							<Route path="/home" component={Home}></Route>
 							<Route path="/project" component={Project}></Route>
 							<Route path="/about" component={About}></Route>
+							<Route path="/redux" component={Redux}></Route>
 						</div>
 					</Content>
 					<Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
 				</Layout>
 			</HashRouter>
-			<PostList></PostList>
 		</div>
 	}
 }
