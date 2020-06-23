@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todo list</title>
+    <script crossorigin="anonymous" integrity="sha384-mlceH9HlqLp7GMKHrj5Ara1+LvdTZVMx4S1U43/NxCvAkzIo8WJ0FE7duLel3wVo" src="https://lib.baomitu.com/jquery/3.4.1/jquery.js"></script>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <script src="/assets/todo-list.js"></script>
+</head>
+<body>
+    <div id="todo-table">
+        <form>
+            <input type="text" name="item" placeholder="add new item">
+            <button type="submit">add item</button>
+        </form>
+        <ul>
+            <% data.forEach((items) => { %>
+                <li><%= items.item %></li>
+            <% }) %>
+        </ul>
+    </div>
+</body>
+</html>
