@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 import '@/css/userlist.scss';
+import { Card } from 'antd';
 import PostList from '@/components/store_test/users'
 export default class BingClick extends React.Component {
 	constructor() {
@@ -20,10 +21,6 @@ export default class BingClick extends React.Component {
 	render() {
 		const self = this
 		return <div>
-			<h1>我是redux</h1>
-			<button onClick={() => this.show()}>点击</button>
-			<div>{this.state.msg}</div>
-			<input type="text" value={this.state.msg} onChange={(e) => this.exchangeInput(e)} />
 			<PostList></PostList>
 		</div>
 	}

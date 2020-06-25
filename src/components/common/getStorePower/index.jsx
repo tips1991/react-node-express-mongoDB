@@ -5,18 +5,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Tabs, Card } from 'antd';
 import { loadPostsAction } from '@/store/actions/post_action'
-class PostList extends React.Component {
+class Power extends React.Component {
 	constructor(props) {
 		super(props)
-		console.log("props", this.props)
 		this.state = {
-			msg: '我是Home',
+			msg: '获取身份权限',
 			list: []
 		}
 	}
 	//当组件输出到 DOM 后会执行 componentDidMount()
-	componentDidMount() {
+	async componentDidMount() {
 		let self = this
+		console.log("propsdd", this.props)
 		this.props.dispatch(loadPostsAction).then(function () {
 			console.log("jajah")
 			self.setState({
@@ -69,14 +69,7 @@ class PostList extends React.Component {
 // 通过connect链接组件和redux数据
 const mapStateToProps = (state, ownProps) => {
 	return {
-		post: state.post
+		power: state.power
 	}
 }
-// const mapDispatchToProps = (dispatch, ownProps) => {
-// 	return {
-// 		dispatch1: () => {
-// 			dispatch(bindActionCreator)
-// 		}
-// 	}
-// }
 export default connect(mapStateToProps)(PostList)

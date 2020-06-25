@@ -43,9 +43,9 @@ export default class Home extends React.Component {
 	render() {
 		return <div>
 			<TimeTree></TimeTree>
-			<button onClick={() => this.show()}>点击</button>
+			{/* <button onClick={() => this.show()}>点击</button>
 			<div>{this.state.msg}</div>
-			<input type="text" value={this.state.msg} onChange={(e) => this.exchangeInput(e)} />
+			<input type="text" value={this.state.msg} onChange={(e) => this.exchangeInput(e)} /> */}
 		</div>
 	}
 }

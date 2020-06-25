@@ -6,6 +6,7 @@ import Qs from 'qs'
 // import { useState } from 'react';
 import { Timeline, Icon, message, Button, PageHeader } from 'antd';
 import timeTreeData from '@/middleware/workExperience.js';
+import { connect } from 'react-redux';
 
 import ModalDiog from "@/components/common/modal/modal";
 
@@ -19,6 +20,7 @@ class TimeTree extends React.Component {
 			content: 'Time',
 			position: 'left',
 			workExperienceData: '',
+			power: ""
 		}
 		this.MakePar = this.MakePar.bind(this)
 
@@ -39,7 +41,11 @@ class TimeTree extends React.Component {
 		})
 	}
 	componentDidMount() {
+		let self = this
 		this.getData();
+		this.setState({
+			power: self.props.power.power.id
+		})
 	}
 	MakePar = (e) => {
 		this.getData();
@@ -87,13 +93,13 @@ class TimeTree extends React.Component {
 				console.log(err);
 			})
 	}
-	buttonNode = e => {
-		return <Button type="primary" onClick={this.showModal}>
-			{this.titleTips()}
-		</Button>
+	isPower = () => {
+		if (this.state.power && this.state.power == "admin") {
+			return <ModalDiog showFormData='' key="1" ref='sendChid' MakePar={this.MakePar}></ModalDiog>
+		}
 	}
 	timeDataShow = () => {
-		if (this.state.workExperienceData) {
+		if (this.state.workExperienceData && this.state.power && this.state.power == "admin") {
 			// return timeTreeData.map((items,index)=>{
 			return this.state.workExperienceData.map((items, index) => {
 				return <Timeline.Item key={index}>
@@ -105,6 +111,16 @@ class TimeTree extends React.Component {
 						<ModalDiog showFormData={items} MakePar={this.MakePar}></ModalDiog>
 						<Button onClick={() => this.delete(items.id)} type="primary">删除</Button>
 					</div>
+				</Timeline.Item>
+			})
+		} else if (this.state.workExperienceData) {
+			console.log(this.state.power)
+			return this.state.workExperienceData.map((items, index) => {
+				return <Timeline.Item key={index}>
+					<h3>单位：{items.companyName}</h3>
+					<p>职位：{items.postion}</p>
+					<p>时间：{items.startTime} ~~ {items.endTime}</p>
+					<p>荣誉：{items.honor}</p>
 				</Timeline.Item>
 			})
 		}
@@ -121,7 +137,7 @@ class TimeTree extends React.Component {
 				title="工作经历时间树"
 				subTitle="This is a subtitle"
 				extra={[
-					<ModalDiog showFormData='' key="1" ref='sendChid' MakePar={this.MakePar}></ModalDiog>
+					this.isPower()
 				]}
 			/>
 			<Timeline mode="alternate">
@@ -130,4 +146,11 @@ class TimeTree extends React.Component {
 		</div>
 	}
 }
-export default TimeTree;
+// export default TimeTree;
+// 通过connect链接组件和redux数据
+const mapStateToProps = (state, ownProps) => {
+	return {
+		power: state.power
+	}
+}
+export default connect(mapStateToProps)(TimeTree)

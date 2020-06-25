@@ -1,4 +1,18 @@
 {
-	"presets":["env","stage-0","react"],
-	"plugins":["transform-runtime",["import",{"libraryName":"antd","style":"css"}]]
+	"presets": [
+		"es2015",
+		"env",
+		"stage-0",
+		"react"
+	],
+	"plugins": [
+		"transform-runtime",
+		[
+			"import",
+			{
+				"libraryName": "antd",
+				"style": "css"
+			}
+		]
+	]
 }

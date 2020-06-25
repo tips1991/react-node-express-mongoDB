@@ -5,3 +5,7 @@ export const conutAddAction = {
 export const countReduceAction = {
     type: 'COUNT_REDUCE'
 }
+
+export const powerAction = {
+    type: 'POWER'
+}

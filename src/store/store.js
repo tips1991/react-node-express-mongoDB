@@ -5,7 +5,7 @@ const store = createStore(
     rootReducers,
     compose(
         applyMiddleware(...[thunk]),//需要使用的中间价数组
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )
 ) //创建一个store
 export default store

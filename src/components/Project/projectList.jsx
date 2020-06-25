@@ -7,6 +7,7 @@ import { Route, Link } from "react-router-dom";
 import cssstyles from '@/css/userlist.scss';
 import AddProjectModal from "@/components/common/addProjectModal/modal";
 import styles from "./project.scss"
+import { connect } from 'react-redux';
 
 import Qs from 'qs'
 const { SubMenu } = Menu;
@@ -25,6 +26,7 @@ class List extends React.Component {
 			pageSize: 10,
 			page: 1,
 			total: "",
+			power: "",
 		}
 	}
 	componentWillReceiveProps(nextProps) {
@@ -38,6 +40,12 @@ class List extends React.Component {
 	}
 	sendGetData = (e) => {
 		this.getData()
+	}
+	isPower = (item) => {
+		if (this.state.power && this.state.power == "admin") {
+			return [<AddProjectModal titles="编辑" showFormData={item} sendGetData={this.sendGetData}></AddProjectModal>,
+			<Icon type="delete" key="delete" onClick={() => this.delete(item)} />]
+		}
 	}
 	cardModal = (e) => {
 		if (this.state.mainData) {
@@ -55,10 +63,11 @@ class List extends React.Component {
 							src={item.url}
 						/>
 					}
-					actions={[
-						<AddProjectModal titles="编辑" showFormData={item} sendGetData={this.sendGetData}></AddProjectModal>,
-						<Icon type="delete" key="delete" onClick={() => this.delete(item)} />
-					]}
+					actions={this.isPower(item)}
+				// actions={[
+				// <AddProjectModal titles="编辑" showFormData={item} sendGetData={this.sendGetData}></AddProjectModal>,
+				// <Icon type="delete" key="delete" onClick={() => this.delete(item)} />
+				// ]}
 				>
 					<Meta
 						className={styles.textLeft}
@@ -73,6 +82,11 @@ class List extends React.Component {
 	}
 	componentWillMount() {
 		this.getData()
+		let self = this
+		console.log("asdfasdf", this.props)
+		this.setState({
+			power: self.props.power.power.id
+		})
 		// this.getDataJsonp() //使用fetch-jsonp实现跨域请求接口
 	}
 	getData() {
@@ -184,14 +198,27 @@ class List extends React.Component {
 		console.log(page, pageSize)
 
 	}
+	isPowerAdd = () => {
+		// if (this.state.power == "admin") { }
+	}
+	addIsPower = () => {
 
+		if (this.state.power && this.state.power == "admin") {
+			return <div className={styles.marginTB15}>
+				<AddProjectModal titles="增加项目" showFormData={""} sendGetData={this.sendGetData}></AddProjectModal>
+			</div>
+		} else {
+			return <div>---</div>
+		}
+	}
 	render() {
 		return <div>
 			{/* Project --- {this.props.match.params.type} - {this.props.match.params.page} */}
 			{this.loadingObj()}
-			<div className={styles.marginTB15}>
+			{this.addIsPower()}
+			{/* <div className={styles.marginTB15}>
 				<AddProjectModal titles="增加项目" showFormData={""} sendGetData={this.sendGetData}></AddProjectModal>
-			</div>
+			</div> */}
 			{this.cardModal()}
 			{/* 分页 */}
 			<div className={cssstyles.marginTop20}>
@@ -208,5 +235,12 @@ class List extends React.Component {
 		</div>
 	}
 }
-export default List;
+// export default List;
+// 通过connect链接组件和redux数据
+const mapStateToProps = (state, ownProps) => {
+	return {
+		power: state.power
+	}
+}
+export default connect(mapStateToProps)(List)
 //在react中，可使用fetch api来获取数据，fetch api是基于promise封装的
